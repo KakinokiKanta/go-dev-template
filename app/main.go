@@ -11,7 +11,7 @@ import (
 func main() {
 	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s",
 		"db-host", "db-user", "db-password", "db-name", "5432")
-	db, err := sql.Open("postgres", dsn)
+	_, err := sql.Open("postgres", dsn)
 	if err != nil {
 		panic("failed to connect database")
 	} else {
