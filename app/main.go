@@ -11,7 +11,7 @@ import (
 func main() {
 	// データベース接続
 	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s",
-		"db-host", "db-user", "db-password", "db-name", "5432")
+		"db", "db-user", "db-password", "db-name", "5432")
 	db, err := sql.Open("postgres", dsn)
 	if err != nil {
 		panic("データベース接続失敗")
@@ -27,10 +27,23 @@ func main() {
 		})
 	})
 	r.GET("/get", func(ctx *gin.Context) {
+		var (
+			id int
+			name string
+			password string
+		)
 		row := db.QueryRow("SELECT * FROM accounts")
-		if row.Err() != nil {
-			ctx.JSON(200, row)
+		err := row.Scan(&id, &name, &password)
+		if err != nil {
+			ctx.JSON(500, gin.H{"error": err})
 			return
+		}
+		if row.Err() != nil {
+			ctx.JSON(200, gin.H{
+				"id": id,
+				"name": name,
+				"password": password,
+			})
 		}
 	})
 	r.Run()
