@@ -1,8 +1,9 @@
 CREATE TABLE accounts (
-  id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  id SERIAL NOT NULL,
   name VARCHAR(20) NOT NULL,
-  password VARCHAR(50) NOT NULL
-)
+  password VARCHAR(50) NOT NULL,
+  PRIMARY KEY (id)
+);
 
 INSERT INTO accounts (name, password) VALUES ('a0_name', 'a0_password');
 INSERT INTO accounts (name, password) VALUES ('a1_name', 'a1_password');
