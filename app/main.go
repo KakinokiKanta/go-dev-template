@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"net/http"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -29,7 +30,7 @@ func main() {
 	r := gin.Default()
 
 	r.GET("/ping", func(ctx *gin.Context) {
-		ctx.JSON(200, gin.H{
+		ctx.JSON(http.StatusOK, gin.H{
 			"message": "pong",
 		})
 	})
@@ -37,18 +38,15 @@ func main() {
 	r.GET("/get", func(ctx *gin.Context) {
 		row := db.QueryRow("SELECT id, name, password FROM accounts;")
 		if row.Err() != nil {
-			ctx.JSON(500, gin.H{"error": row.Err().Error()})
+			ctx.JSON(http.StatusInternalServerError, gin.H{"error": row.Err().Error()})
 			return
 		}
 		err := row.Scan(&id, &name, &password)
-		fmt.Println(id)
-		fmt.Println(name)
-		fmt.Println(password)
 		if err != nil {
-			ctx.JSON(500, gin.H{"error": err})
+			ctx.JSON(http.StatusInternalServerError, gin.H{"error": err})
 			return
 		}
-		ctx.JSON(200, gin.H{
+		ctx.JSON(http.StatusOK, gin.H{
 			"id": strconv.Itoa(id),
 			"name": name,
 			"password": password,
