@@ -9,20 +9,29 @@ import (
 )
 
 func main() {
+	// データベース接続
 	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s",
 		"db-host", "db-user", "db-password", "db-name", "5432")
-	_, err := sql.Open("postgres", dsn)
+	db, err := sql.Open("postgres", dsn)
 	if err != nil {
-		panic("failed to connect database")
+		panic("データベース接続失敗")
 	} else {
-		fmt.Println("connection is successful")
+		fmt.Println("データベース接続成功")
 	}
 
 	r := gin.Default()
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
+
+	r.GET("/ping", func(ctx *gin.Context) {
+		ctx.JSON(200, gin.H{
 			"message": "pong",
 		})
+	})
+	r.GET("/get", func(ctx *gin.Context) {
+		row := db.QueryRow("SELECT * FROM accounts")
+		if row.Err() != nil {
+			ctx.JSON(200, row)
+			return
+		}
 	})
 	r.Run()
 }
