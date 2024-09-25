@@ -1,12 +1,15 @@
 # go-dev-template
 
-GO + PostgreSQLでの開発を、DockerとAirにより快適なものとするためのテンプレートリポジトリです。
+GO + PostgreSQL での開発を、Docker と Air により快適なものとするためのテンプレートリポジトリです。
 
-Goで開発するAPIサーバー用のコンテナと、PostgreSQLによるDB用のコンテナをDocker Composeにより立ち上げます。また、Airによるホットリロードのおかげで、Goのソースコードに対する変更は、立ち上げているAPIサーバー用のコンテナに反映されます。
+Go で開発する API サーバー用のコンテナと、PostgreSQL による DB 用のコンテナを Docker Compose により立ち上げます。また、Air によるホットリロードのおかげで、Go のソースコードに対する変更は、立ち上げている API サーバー用のコンテナに反映されます。
 
 詳しい説明については、[こちらの記事]()を参照してください。
 
 ## 環境構築
+
+本リポジトリを用いて Go を試してみる場合には、以下の手順通りに環境構築してください。
+もし、テンプレートとしてリポジトリを作成する場合には、go.mod 内のモジュール名や、docker コンテナ名などは適宜修正してお使いください。
 
 1. [Docker](https://www.docker.com/ja-jp/get-started/)をインストール
 2. 本リポジトリをクローンするか、本リポジトリをテンプレートとして選択してリポジトリを作成する
@@ -16,7 +19,7 @@ Goで開発するAPIサーバー用のコンテナと、PostgreSQLによるDB用
 
 ## 開発の流れ
 
-下記コマンドで docker コンテナを起動する。これにより、開発中のAPIサーバー、PostgresのDBコンテナ、データベースをGUI操作できるPGAdmin、の3つのコンテナが立ち上がる
+下記コマンドで docker コンテナを起動する。これにより、開発中の API サーバー、Postgres の DB コンテナ、データベースを GUI 操作できる PGAdmin、の 3 つのコンテナが立ち上がる
 
 ```
 docker compose up
@@ -28,7 +31,7 @@ docker コンテナを閉じる
 docker compose down
 ```
 
-テンプレートでは、APIサーバは `localhost:8080` 、 PgAdminは `localhost:81` で立ち上がる
+テンプレートでは、API サーバは `localhost:8080` 、 PgAdmin は `localhost:81` で立ち上がる
 
 ## 使用技術
 
