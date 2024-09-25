@@ -4,7 +4,7 @@ GO + PostgreSQL での開発を、Docker と Air により快適なものとす�
 
 Go で開発する API サーバー用のコンテナと、PostgreSQL による DB 用のコンテナを Docker Compose により立ち上げます。また、Air によるホットリロードのおかげで、Go のソースコードに対する変更は、立ち上げている API サーバー用のコンテナに反映されます。
 
-詳しい説明については、[こちらの記事]()を参照してください。
+詳しい説明については、[こちらの記事](https://qiita.com/KakinokiKanta/items/b943b8aefc13d055aa85)を参照してください。
 
 ## 環境構築
 
