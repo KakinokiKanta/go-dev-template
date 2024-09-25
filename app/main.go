@@ -3,14 +3,21 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/lib/pq"
 )
 
+var (
+	id int
+	name string
+	password string
+)
+
 func main() {
 	// データベース接続
-	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s",
+	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable",
 		"db", "db-user", "db-password", "db-name", "5432")
 	db, err := sql.Open("postgres", dsn)
 	if err != nil {
@@ -26,25 +33,26 @@ func main() {
 			"message": "pong",
 		})
 	})
+
 	r.GET("/get", func(ctx *gin.Context) {
-		var (
-			id int
-			name string
-			password string
-		)
-		row := db.QueryRow("SELECT * FROM accounts")
+		row := db.QueryRow("SELECT id, name, password FROM accounts;")
+		if row.Err() != nil {
+			ctx.JSON(500, gin.H{"error": row.Err().Error()})
+			return
+		}
 		err := row.Scan(&id, &name, &password)
+		fmt.Println(id)
+		fmt.Println(name)
+		fmt.Println(password)
 		if err != nil {
 			ctx.JSON(500, gin.H{"error": err})
 			return
 		}
-		if row.Err() != nil {
-			ctx.JSON(200, gin.H{
-				"id": id,
-				"name": name,
-				"password": password,
-			})
-		}
+		ctx.JSON(200, gin.H{
+			"id": strconv.Itoa(id),
+			"name": name,
+			"password": password,
+		})
 	})
 	r.Run()
 }
