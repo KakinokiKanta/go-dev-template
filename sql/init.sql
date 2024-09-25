@@ -5,7 +5,6 @@ CREATE TABLE accounts (
   PRIMARY KEY (id)
 );
 
-INSERT INTO accounts (name, password) VALUES ('a0_name', 'a0_password');
 INSERT INTO accounts (name, password) VALUES ('a1_name', 'a1_password');
 INSERT INTO accounts (name, password) VALUES ('a2_name', 'a2_password');
 INSERT INTO accounts (name, password) VALUES ('a3_name', 'a3_password');
