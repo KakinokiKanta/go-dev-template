@@ -1,8 +1,8 @@
-FROM golang:1.22.1-alpine3.18
+FROM golang:1.23.1-alpine3.20
 
-COPY ./src /go/src/
+COPY ./app /go/app/
 
-WORKDIR /go/src/
+WORKDIR /go/app/
 
 RUN go mod download && go mod tidy
 RUN go install github.com/air-verse/air@latest
